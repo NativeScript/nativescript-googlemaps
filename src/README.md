@@ -5,6 +5,6 @@ Welcome to the `nativescript-googlemaps` plugin for NativeScript framework
 
 # Install `nativescript-googlemaps` plugin.
 
-Navigate to project folder and run `NativeScript-CLI` command `tns plugin add nativescript-googlemaps`.
+Navigate to project folder and run `NativeScript-CLI` command `tns plugin add nativescript-googlemaps`
 
 [This](https://github.com/NativeScript/nativescript-geolocation-demo) project can be used as an example how to use `nativescript-geolocation` and `nativescript-googlemaps` plugins.
