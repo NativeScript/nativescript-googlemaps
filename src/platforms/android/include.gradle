@@ -1,0 +1,13 @@
+//default elements
+android { 
+    productFlavors {
+        "googlemaps" {
+            dimension "googlemaps"
+        }
+    }
+}
+
+//optional elements
+dependencies {
+    compile "com.google.android.gms:play-services:8.3.0"
+}
