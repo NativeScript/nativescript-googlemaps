@@ -54,10 +54,18 @@ export class TnsGoogleMaps extends View {
     }
 
     public _onMarkerPropertyChanged(data) {
-        this.addMarker(data.newValue);
+        if (data.newValue) {
+            this.addMarker(data.newValue);
+        } else {
+            this.clearMap();
+        }
     }
 
     public addMarker(marker) {
+        //
+    }
+
+    public clearMap() {
         //
     }
 }

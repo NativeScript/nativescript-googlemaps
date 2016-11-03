@@ -12,4 +12,6 @@ export class TnsGoogleMaps extends View {
     public static markerProperty: Property;
 
     public addMarker(marker);
+
+    public clearMap();
 }
