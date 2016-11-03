@@ -19,12 +19,18 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
     }
 
     public addMarker(marker) {
-        if (this.ios) {
+        if (marker && this.ios) {
             let newMarker = new GMSMarker();
             newMarker.position = CLLocationCoordinate2DMake(marker.latitude, marker.longitude);
             let cameraUpdate = GMSCameraUpdate.setTargetZoom(newMarker.position, this.ios.maxZoom);
             newMarker.map = this.ios;
             this.ios.animateWithCameraUpdate(cameraUpdate);
+        }
+    }
+
+    public clearMap() {
+        if (this.ios) {
+            this.ios.clear();
         }
     }
 }
