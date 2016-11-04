@@ -1,6 +1,6 @@
 {
     "name": "nativescript-googlemaps",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Provides API for showing location on a google maps.",
     "main": "nativescript-googlemaps",
     "nativescript": {
