@@ -1,20 +1,52 @@
 import common = require("./nativescript-googlemaps-common");
+import * as application from "application";
+import * as platform from "platform";
 
 global.moduleMerge(common, exports);
 
+var REQUEST_REQUIRED_PERMISSIONS = 1234;
+
 export class TnsGoogleMaps extends common.TnsGoogleMaps {
     private googleMap: any;
+    private hasPermissions: boolean;
 
-    // public get googleMap(): any {
-    //     return this._googleMap;
-    // }
-
-    // public set googleMap(value) {
-    //     this._googleMap = value;
-    // }
+    /**
+     *
+     */
+    constructor() {
+        super();
+        this.hasPermissions = false;
+        let currentContext = application.android.currentContext;
+        if (parseInt(platform.device.sdkVersion) >= 23) {
+            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(currentContext, (<any>android).Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                let activityRequestPermissionHandler = (args: application.AndroidActivityRequestPermissionsEventData) => {
+                    application.android.off(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler); 
+                    if (args.requestCode === REQUEST_REQUIRED_PERMISSIONS && args.grantResults.length > 0 && args.grantResults[0] === android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                        this.hasPermissions = true;
+                        this.createUIInternal();
+                    } else {
+                        return;
+                    }
+                };
+                application.android.on(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler);
+                (<any>android.support.v4.app).ActivityCompat.requestPermissions(currentContext, ['android.permission.ACCESS_FINE_LOCATION'], REQUEST_REQUIRED_PERMISSIONS);  
+            } else {
+                this.hasPermissions = true;
+            }
+        } else {
+            this.hasPermissions = true;
+        }
+    }
 
     public _createUI() {
         this._nativeView = new org.nativescript.widgets.ContentLayout(this._context);
+        this.createUIInternal();
+    }
+
+    private createUIInternal() {
+        if (!this.hasPermissions) {
+            return;
+        }
         let id = android.view.View.generateViewId();
         this._nativeView.setId(id);
         let activity = this._context;
