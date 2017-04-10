@@ -1,6 +1,6 @@
 {
     "name": "nativescript-googlemaps",
-    "version": "0.0.6",
+    "version": "3.0.0",
     "description": "Provides API for showing location on a google maps.",
     "main": "nativescript-googlemaps",
     "nativescript": {
@@ -17,5 +17,10 @@
     "keywords": [
         "NativeScript", "location", "geolocation", "googlemaps", "maps", "google"
     ],
-    "author": "Nedyalko Nikolov <nedyalko.nikolov@telerik.com>"
+    "author": "NativeScript team",
+    "devDependencies": {
+        "tns-core-modules": "^3.0.0 || ^3.0.0-rc.1",
+        "tns-platform-declarations": "^3.0.0 || ^3.0.0-rc.1",
+        "typescript": "^2.2.2"
+    }
 }
