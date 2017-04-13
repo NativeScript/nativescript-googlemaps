@@ -20,16 +20,17 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
         if (parseInt(platform.device.sdkVersion) >= 23) {
             if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(currentContext, (<any>android).Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 let activityRequestPermissionHandler = (args: application.AndroidActivityRequestPermissionsEventData) => {
-                    application.android.off(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler); 
+                    application.android.off(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler);
                     if (args.requestCode === REQUEST_REQUIRED_PERMISSIONS && args.grantResults.length > 0 && args.grantResults[0] === android.content.pm.PackageManager.PERMISSION_GRANTED) {
                         this.hasPermissions = true;
-                        this.createUIInternal();
+                        // this.createUIInternal();
+                        this.createNativeView();
                     } else {
                         return;
                     }
                 };
                 application.android.on(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler);
-                (<any>android.support.v4.app).ActivityCompat.requestPermissions(currentContext, ['android.permission.ACCESS_FINE_LOCATION'], REQUEST_REQUIRED_PERMISSIONS);  
+                (<any>android.support.v4.app).ActivityCompat.requestPermissions(currentContext, ['android.permission.ACCESS_FINE_LOCATION'], REQUEST_REQUIRED_PERMISSIONS);
             } else {
                 this.hasPermissions = true;
             }
@@ -38,17 +39,19 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
         }
     }
 
-    public _createUI() {
-        this._nativeView = new org.nativescript.widgets.ContentLayout(this._context);
-        this.createUIInternal();
-    }
+    // public _createUI() {
+    //     this._nativeView = new org.nativescript.widgets.ContentLayout(this._context);
+    //     this.createUIInternal();
+    // }
 
-    private createUIInternal() {
+    public createNativeView() {
+        let nativeView = new org.nativescript.widgets.ContentLayout(this._context);
+
         if (!this.hasPermissions) {
             return;
         }
         let id = android.view.View.generateViewId();
-        this._nativeView.setId(id);
+        nativeView.setId(id);
         let activity = this._context;
         let googleMapOptions = new com.google.android.gms.maps.GoogleMapOptions().
             compassEnabled(true);
@@ -72,7 +75,40 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
             }
         });
         mapFragment.getMapAsync(callback);
+
+        return nativeView;
     }
+
+    // private createUIInternal() {
+    //     if (!this.hasPermissions) {
+    //         return;
+    //     }
+    //     let id = android.view.View.generateViewId();
+    //     this._nativeView.setId(id);
+    //     let activity = this._context;
+    //     let googleMapOptions = new com.google.android.gms.maps.GoogleMapOptions().
+    //         compassEnabled(true);
+    //     let mapFragment = com.google.android.gms.maps.MapFragment.newInstance(googleMapOptions);
+    //     this.android = mapFragment;
+    //     let transaction = activity.getFragmentManager().beginTransaction();
+    //     transaction.add(id, mapFragment, "MAP_FRAGMENT");
+    //     transaction.commit();
+    //     let that = new WeakRef(this);
+    //     let callback = new com.google.android.gms.maps.OnMapReadyCallback({
+    //         onMapReady: function (gMap) {
+    //             gMap.setMyLocationEnabled(true);
+    //             let owner = that.get();
+    //             if (owner) {
+    //                 owner.googleMap = gMap;
+    //                 if (owner.marker) {
+    //                     owner.addMarker(owner.marker);
+    //                 }
+    //                 owner.notify({ eventName: TnsGoogleMaps.mapLoadedEvent, object: owner, map: gMap });
+    //             }
+    //         }
+    //     });
+    //     mapFragment.getMapAsync(callback);
+    // }
 
     public addMarker(marker) {
         if (marker && this.googleMap) {

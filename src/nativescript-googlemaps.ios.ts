@@ -10,7 +10,7 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
         let settings = this.ios.settings;
         settings.myLocationButton = true;
         settings.compassButton = true;
-        this._nativeView = this.ios;
+        // this._nativeView = this.ios;
     }
 
     public onLoaded() {

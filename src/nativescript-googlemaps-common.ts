@@ -1,26 +1,35 @@
-import { View } from "ui/core/view";
-import { PropertyMetadata } from "ui/core/proxy";
-import { Property, PropertyMetadataSettings } from "ui/core/dependency-observable";
-import { Observable } from "data/observable";
+import { View, Property } from "tns-core-modules/ui/core/view";
 
-var markerProperty = new Property("marker", "TnsGoogleMaps", new PropertyMetadata(null, PropertyMetadataSettings.None));
 
-function onMarkerPropertyChanged(data) {
-    let maps = data.object;
-    maps._onMarkerPropertyChanged(data);
+// var markerProperty = new Property("marker", "TnsGoogleMaps", new PropertyMetadata(null, PropertyMetadataSettings.None));
+
+// function onMarkerPropertyChanged(data) {
+//     let maps = data.object;
+//     maps._onMarkerPropertyChanged(data);
+// }
+
+// (<PropertyMetadata>markerProperty.metadata).onSetNativeValue = onMarkerPropertyChanged;
+
+export const markerProperty = new Property<TnsGoogleMaps, any>({ name: "marker", defaultValue: null, valueChanged: this._onMarkerPropertyChanged });
+markerProperty.register(TnsGoogleMaps);
+
+function _onMarkerPropertyChanged(target, oldValue, newValue) {
+    if (newValue) {
+        this.addMarker(newValue);
+    } else {
+        this.clearMap();
+    }
 }
 
-(<PropertyMetadata>markerProperty.metadata).onSetNativeValue = onMarkerPropertyChanged;
-
 export class TnsGoogleMaps extends View {
-    public static markerProperty: Property = markerProperty;
+    marker: any;
 
     public static mapLoadedEvent: string = "mapLoaded";
 
     private _android: any;
     private _ios: any;
-    private __nativeView: any;
-    
+    // private __nativeView: any;
+
     public get android(): any {
         return this._android;
     }
@@ -37,29 +46,13 @@ export class TnsGoogleMaps extends View {
         this._ios = value;
     }
 
-    public get _nativeView(): any {
-        return this.__nativeView;
-    }
+    // public get _nativeView(): any {
+    //     return this.__nativeView;
+    // }
 
-    public set _nativeView(value) {
-        this.__nativeView = value;
-    }
-
-    public get marker(): any {
-        return this._getValue(TnsGoogleMaps.markerProperty);
-    }
-
-    public set marker(value) {
-        this._setValue(TnsGoogleMaps.markerProperty, value);
-    }
-
-    public _onMarkerPropertyChanged(data) {
-        if (data.newValue) {
-            this.addMarker(data.newValue);
-        } else {
-            this.clearMap();
-        }
-    }
+    // public set _nativeView(value) {
+    //     this.__nativeView = value;
+    // }
 
     public addMarker(marker) {
         //
