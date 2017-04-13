@@ -22,6 +22,6 @@ rm -rf $DIST_DIR
 mkdir -p $PACK_DIR
 
 #compile package and copy file required by npm
-node_modules/.bin/tsc -p $SOURCE_DIR --outDir $PACK_DIR
+$SOURCE_DIR/node_modules/.bin/tsc -p $SOURCE_DIR --outDir $PACK_DIR
 
 copy_package_files
