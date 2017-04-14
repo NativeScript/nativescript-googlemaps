@@ -1,12 +1,12 @@
-import common = require("./nativescript-googlemaps-common");
+import { TnsGoogleMapsBase, markerProperty, MarkerInfo } from "./nativescript-googlemaps-common";
 import * as application from "application";
 import * as platform from "platform";
 
-global.moduleMerge(common, exports);
+export { markerProperty, MarkerInfo };
 
 var REQUEST_REQUIRED_PERMISSIONS = 1234;
 
-export class TnsGoogleMaps extends common.TnsGoogleMaps {
+export class TnsGoogleMaps extends TnsGoogleMapsBase {
     private googleMap: any;
     private hasPermissions: boolean;
 
@@ -73,7 +73,7 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
         return nativeView;
     }
 
-    public addMarker(marker) {
+    public addMarker(marker: MarkerInfo) {
         if (marker && this.googleMap) {
             let newMarkerPosition = new com.google.android.gms.maps.model.LatLng(marker.latitude, marker.longitude);
             this.googleMap.addMarker(new com.google.android.gms.maps.model.MarkerOptions().position(newMarkerPosition));
@@ -84,6 +84,18 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
     public clearMap() {
         if (this.googleMap) {
             this.googleMap.clear();
+        }
+    }
+
+    [markerProperty.getDefault](): MarkerInfo {
+        return undefined;
+    }
+
+    [markerProperty.setNative](value: MarkerInfo) {
+        if (value) {
+            this.addMarker(value);
+        } else {
+            this.clearMap();
         }
     }
 }

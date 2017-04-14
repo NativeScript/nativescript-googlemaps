@@ -1,7 +1,9 @@
 import { View, Property } from "tns-core-modules/ui/core/view";
+import { MarkerInfo, TnsGoogleMaps } from "./nativescript-googlemaps";
 
-export class TnsGoogleMaps extends View {
-    marker: any;
+export { MarkerInfo };
+export class TnsGoogleMapsBase extends View implements TnsGoogleMaps {
+    marker: MarkerInfo;
 
     public static mapLoadedEvent: string = "mapLoaded";
 
@@ -21,7 +23,7 @@ export class TnsGoogleMaps extends View {
         this.nativeView = value;
     }
 
-    public addMarker(marker) {
+    public addMarker(marker: MarkerInfo) {
         //
     }
 
@@ -30,15 +32,5 @@ export class TnsGoogleMaps extends View {
     }
 }
 
-export const markerProperty = new Property<TnsGoogleMaps, any>({
-    name: "marker",
-    defaultValue: null,
-    valueChanged: (target, oldValue, newValue) => {
-        if (newValue) {
-            target.addMarker(newValue);
-        } else {
-            target.clearMap();
-        }
-    }
-});
-markerProperty.register(TnsGoogleMaps);
+export const markerProperty = new Property<TnsGoogleMapsBase, MarkerInfo>({ name: "marker" });
+markerProperty.register(TnsGoogleMapsBase);
