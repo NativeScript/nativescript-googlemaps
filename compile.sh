@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 SOURCE_DIR=src;
 PACK_DIR=dist/package/;

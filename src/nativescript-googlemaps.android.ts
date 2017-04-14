@@ -23,7 +23,6 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
                     application.android.off(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler);
                     if (args.requestCode === REQUEST_REQUIRED_PERMISSIONS && args.grantResults.length > 0 && args.grantResults[0] === android.content.pm.PackageManager.PERMISSION_GRANTED) {
                         this.hasPermissions = true;
-                        // this.createUIInternal();
                         this.createNativeView();
                     } else {
                         return;
@@ -38,11 +37,6 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
             this.hasPermissions = true;
         }
     }
-
-    // public _createUI() {
-    //     this._nativeView = new org.nativescript.widgets.ContentLayout(this._context);
-    //     this.createUIInternal();
-    // }
 
     public createNativeView() {
         let nativeView = new org.nativescript.widgets.ContentLayout(this._context);
@@ -78,37 +72,6 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
 
         return nativeView;
     }
-
-    // private createUIInternal() {
-    //     if (!this.hasPermissions) {
-    //         return;
-    //     }
-    //     let id = android.view.View.generateViewId();
-    //     this._nativeView.setId(id);
-    //     let activity = this._context;
-    //     let googleMapOptions = new com.google.android.gms.maps.GoogleMapOptions().
-    //         compassEnabled(true);
-    //     let mapFragment = com.google.android.gms.maps.MapFragment.newInstance(googleMapOptions);
-    //     this.android = mapFragment;
-    //     let transaction = activity.getFragmentManager().beginTransaction();
-    //     transaction.add(id, mapFragment, "MAP_FRAGMENT");
-    //     transaction.commit();
-    //     let that = new WeakRef(this);
-    //     let callback = new com.google.android.gms.maps.OnMapReadyCallback({
-    //         onMapReady: function (gMap) {
-    //             gMap.setMyLocationEnabled(true);
-    //             let owner = that.get();
-    //             if (owner) {
-    //                 owner.googleMap = gMap;
-    //                 if (owner.marker) {
-    //                     owner.addMarker(owner.marker);
-    //                 }
-    //                 owner.notify({ eventName: TnsGoogleMaps.mapLoadedEvent, object: owner, map: gMap });
-    //             }
-    //         }
-    //     });
-    //     mapFragment.getMapAsync(callback);
-    // }
 
     public addMarker(marker) {
         if (marker && this.googleMap) {

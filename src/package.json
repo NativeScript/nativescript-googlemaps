@@ -5,8 +5,8 @@
     "main": "nativescript-googlemaps",
     "nativescript": {
         "platforms": {
-            "android": "2.3.0",
-            "ios": "2.3.0"
+            "android": "3.0.0",
+            "ios": "3.0.0"
         }
     },
     "license": "Apache-2.0",
@@ -15,9 +15,16 @@
         "url": "https://github.com/NativeScript/nativescript-googlemaps.git"
     },
     "keywords": [
-        "NativeScript", "location", "geolocation", "googlemaps", "maps", "google"
+        "NativeScript",
+        "location",
+        "geolocation",
+        "googlemaps",
+        "maps",
+        "google"
     ],
-    "author": "NativeScript team",
+    "author": {
+        "name": "NativeScript Team"
+    },
     "devDependencies": {
         "tns-core-modules": "^3.0.0 || ^3.0.0-rc.1",
         "tns-platform-declarations": "^3.0.0 || ^3.0.0-rc.1",
