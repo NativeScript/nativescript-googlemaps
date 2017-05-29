@@ -1,12 +1,12 @@
-import common = require("./nativescript-googlemaps-common");
+import { TnsGoogleMapsBase, markerProperty, MarkerInfo } from "./nativescript-googlemaps-common";
 import * as application from "application";
 import * as platform from "platform";
 
-global.moduleMerge(common, exports);
+export { markerProperty, MarkerInfo };
 
 var REQUEST_REQUIRED_PERMISSIONS = 1234;
 
-export class TnsGoogleMaps extends common.TnsGoogleMaps {
+export class TnsGoogleMaps extends TnsGoogleMapsBase {
     private googleMap: any;
     private hasPermissions: boolean;
 
@@ -20,16 +20,16 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
         if (parseInt(platform.device.sdkVersion) >= 23) {
             if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(currentContext, (<any>android).Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 let activityRequestPermissionHandler = (args: application.AndroidActivityRequestPermissionsEventData) => {
-                    application.android.off(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler); 
+                    application.android.off(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler);
                     if (args.requestCode === REQUEST_REQUIRED_PERMISSIONS && args.grantResults.length > 0 && args.grantResults[0] === android.content.pm.PackageManager.PERMISSION_GRANTED) {
                         this.hasPermissions = true;
-                        this.createUIInternal();
+                        this.createNativeView();
                     } else {
                         return;
                     }
                 };
                 application.android.on(application.AndroidApplication.activityRequestPermissionsEvent, activityRequestPermissionHandler);
-                (<any>android.support.v4.app).ActivityCompat.requestPermissions(currentContext, ['android.permission.ACCESS_FINE_LOCATION'], REQUEST_REQUIRED_PERMISSIONS);  
+                (<any>android.support.v4.app).ActivityCompat.requestPermissions(currentContext, ['android.permission.ACCESS_FINE_LOCATION'], REQUEST_REQUIRED_PERMISSIONS);
             } else {
                 this.hasPermissions = true;
             }
@@ -38,17 +38,14 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
         }
     }
 
-    public _createUI() {
-        this._nativeView = new org.nativescript.widgets.ContentLayout(this._context);
-        this.createUIInternal();
-    }
+    public createNativeView() {
+        let nativeView = new org.nativescript.widgets.ContentLayout(this._context);
 
-    private createUIInternal() {
         if (!this.hasPermissions) {
             return;
         }
         let id = android.view.View.generateViewId();
-        this._nativeView.setId(id);
+        nativeView.setId(id);
         let activity = this._context;
         let googleMapOptions = new com.google.android.gms.maps.GoogleMapOptions().
             compassEnabled(true);
@@ -72,9 +69,11 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
             }
         });
         mapFragment.getMapAsync(callback);
+
+        return nativeView;
     }
 
-    public addMarker(marker) {
+    public addMarker(marker: MarkerInfo) {
         if (marker && this.googleMap) {
             let newMarkerPosition = new com.google.android.gms.maps.model.LatLng(marker.latitude, marker.longitude);
             this.googleMap.addMarker(new com.google.android.gms.maps.model.MarkerOptions().position(newMarkerPosition));
@@ -85,6 +84,18 @@ export class TnsGoogleMaps extends common.TnsGoogleMaps {
     public clearMap() {
         if (this.googleMap) {
             this.googleMap.clear();
+        }
+    }
+
+    [markerProperty.getDefault](): MarkerInfo {
+        return undefined;
+    }
+
+    [markerProperty.setNative](value: MarkerInfo) {
+        if (value) {
+            this.addMarker(value);
+        } else {
+            this.clearMap();
         }
     }
 }
