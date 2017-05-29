@@ -7,7 +7,7 @@ android {
     }
 }
 
-//optional elements
 dependencies {
-    compile "com.google.android.gms:play-services:8.3.0"
+    def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion : '+'
+    compile "com.google.android.gms:play-services-maps:$googlePlayServicesVersion"
 }
