@@ -1,5 +1,5 @@
 import { View, Property } from "tns-core-modules/ui/core/view";
-import { MarkerInfo, TnsGoogleMaps } from "./nativescript-googlemaps";
+import { MarkerInfo, TnsGoogleMaps } from "./googlemaps";
 
 export { MarkerInfo };
 export class TnsGoogleMapsBase extends View implements TnsGoogleMaps {

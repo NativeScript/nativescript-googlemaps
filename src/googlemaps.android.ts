@@ -1,4 +1,4 @@
-import { TnsGoogleMapsBase, markerProperty, MarkerInfo } from "./nativescript-googlemaps-common";
+import { TnsGoogleMapsBase, markerProperty, MarkerInfo } from "./googlemaps.common";
 import * as application from "application";
 import * as platform from "platform";
 

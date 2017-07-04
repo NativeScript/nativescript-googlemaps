@@ -15,6 +15,6 @@ The plugin will default to latest available version of the Android `play-service
 //   /app/App_Resources/Android/app.gradle
 
 project.ext {
-    googlePlayServicesVersion = "+"
+googlePlayServicesVersion = "+"
 }
 ```

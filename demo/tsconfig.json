@@ -11,21 +11,13 @@
             "es6",
             "dom"
         ],
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "./node_modules/tns-core-modules/*",
-                "./node_modules/*"
-            ]
-        },
-        "sourceMap": false,
         "pretty": true,
-        "preserveConstEnums": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "noEmitHelpers": true,
         "noEmitOnError": false,
         "noImplicitAny": false,
+        "noImplicitReturns": true,
         "noImplicitUseStrict": false,
         "noFallthroughCasesInSwitch": true
     },
