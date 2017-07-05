@@ -2,6 +2,10 @@ import { TnsGoogleMapsBase, markerProperty, MarkerInfo } from "./googlemaps.comm
 
 export { markerProperty, MarkerInfo };
 
+declare const GMSMarker: any;
+declare const GMSMapView: any;
+declare const GMSCameraUpdate: any;
+
 export class TnsGoogleMaps extends TnsGoogleMapsBase {
     constructor() {
         super();

@@ -2,6 +2,9 @@ import { TnsGoogleMapsBase, markerProperty, MarkerInfo } from "./googlemaps.comm
 import * as application from "application";
 import * as platform from "platform";
 
+declare const com: any;
+declare const android: any;
+
 export { markerProperty, MarkerInfo };
 
 var REQUEST_REQUIRED_PERMISSIONS = 1234;
