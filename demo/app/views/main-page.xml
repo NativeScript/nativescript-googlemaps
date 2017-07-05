@@ -1,0 +1,8 @@
+<Page loaded="pageLoaded">
+    <GridLayout rows="auto, *, auto">
+        <StackLayout>
+            <Button text="Show Current Location On Map" tap="showCurrentLocationOnMap" />
+            <Button text="Show Google Map" tap="showMap"/>
+        </StackLayout>
+    </GridLayout>
+</Page>
