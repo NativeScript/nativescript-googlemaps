@@ -26,8 +26,8 @@
         "name": "NativeScript Team"
     },
     "devDependencies": {
-        "tns-core-modules": "^3.0.0 || ^3.0.0-rc.1",
-        "tns-platform-declarations": "^3.0.0 || ^3.0.0-rc.1",
+        "tns-core-modules": "^3.0.0 || >3.2.0-",
+        "tns-platform-declarations": "^3.0.0",
         "typescript": "^2.2.2"
     },
     "peerDependencies": {
