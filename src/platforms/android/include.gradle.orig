@@ -1,0 +1,30 @@
+<<<<<<< HEAD
+//default elements
+android { 
+    productFlavors {
+        "googlemaps" {
+            dimension "googlemaps"
+        }
+    }
+}
+
+dependencies {
+    def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion : '+'
+    compile "com.google.android.gms:play-services-maps:$googlePlayServicesVersion"
+=======
+/* Include.gradle configuration: http://docs.nativescript.org/plugins/plugins#includegradle-specification */
+
+android {
+	productFlavors {
+		"nativescript-googlemaps" {
+			dimension "nativescript-googlemaps"
+		}
+	}
+}
+
+dependencies {
+    // Describe plugin native Android dependencies like
+	// compile "groupName:pluginName:ver" 
+    // EXAMPLE: compile "com.facebook.fresco:fresco:0.9.0+"
+>>>>>>> e009240... initial commit
+}

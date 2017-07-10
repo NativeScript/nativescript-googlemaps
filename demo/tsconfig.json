@@ -4,30 +4,21 @@
         "module": "commonjs",
         "declaration": false,
         "removeComments": true,
-        "noLib": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "lib": [
             "es6",
             "dom"
         ],
+        "noEmitHelpers": true,
+        "noEmitOnError": true,
         "baseUrl": ".",
         "paths": {
             "*": [
                 "./node_modules/tns-core-modules/*",
                 "./node_modules/*"
             ]
-        },
-        "sourceMap": false,
-        "pretty": true,
-        "preserveConstEnums": true,
-        "allowUnreachableCode": false,
-        "allowUnusedLabels": false,
-        "noEmitHelpers": true,
-        "noEmitOnError": false,
-        "noImplicitAny": false,
-        "noImplicitUseStrict": false,
-        "noFallthroughCasesInSwitch": true
+        }
     },
     "exclude": [
         "node_modules",
