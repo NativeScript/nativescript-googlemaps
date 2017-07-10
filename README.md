@@ -1,3 +1,5 @@
+__ATTENTION: This repository is deprecated. Use the [nativescript-google-maps-sdk](https://www.npmjs.com/package/nativescript-google-maps-sdk) plugin as an alternative.__
+
 Welcome to the `nativescript-googlemaps` plugin for NativeScript framework 
 
 # Prerequisites
